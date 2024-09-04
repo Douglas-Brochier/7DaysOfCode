@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personagens Traduzidos</title>
+</head>
+<body>
+    <h1>Personagens Traduzidos</h1>
+    {% if personagens.error %}
+        <p>{{ personagens.error }}</p>
+    {% else %}
+        <ul>
+        {% for personagem in personagens %}
+            <li>
+                <strong>Nome Original:</strong> {{ personagem.nome_original }} | 
+                <strong>Nome Traduzido:</strong> {{ personagem.nome_traduzido }}<br>
+                <strong>Afiliação Original:</strong> {{ personagem.afiliacao_original }} | 
+                <strong>Afiliação Traduzida:</strong> {{ personagem.afiliacao_traduzida }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
