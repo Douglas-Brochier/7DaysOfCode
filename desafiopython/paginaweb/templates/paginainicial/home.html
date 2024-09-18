@@ -13,6 +13,7 @@
             <div class="alert alert-danger">{{ personagens.error }}</div>
         {% else %}
             <table class="table table-striped table-bordered">
+        {% endif %}
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -23,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for personagem in personagens %}
+                    {% for personagem in page.object_list %}
                     <tr>
                         <td>{{ personagem.id }}</td>
                         <td>{{ personagem.nome_original }}</td>
@@ -34,7 +35,15 @@
                     {% endfor %}
                 </tbody>
             </table>
-        {% endif %}
+        <div class="page-links">
+            {% if page.has_previous %}
+                <a href="{% url 'home' %}?page={{page.previous_page_number}}">Anterior </a> 
+            {% endif %}
+
+            {% if page.has_next %}
+                <a href="{% url 'home' %}?page={{page.next_page_number}}">Próximo </a> 
+            {% endif %}
+        </div>
     </div>
 
     <!-- Script do Bootstrap -->

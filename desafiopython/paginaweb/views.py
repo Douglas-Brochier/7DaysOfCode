@@ -2,6 +2,7 @@ from django.shortcuts import render
 import requests
 from googletrans import Translator
 from .models import Personagem
+from django.core.paginator import Paginator
 
 def traduzir_personagens():
     url = "https://last-airbender-api.fly.dev/api/v1/characters"
@@ -36,5 +37,7 @@ def traduzir_personagens():
 def home(request):
     traduzir_personagens() 
     personagens_traduzidos = Personagem.objects.all()  # Busca todos os personagens salvos
-    context = {'personagens': personagens_traduzidos}
-    return render(request,'paginainicial\home.html', context)
+    paginator = Paginator(personagens_traduzidos, 10)
+    page_num = request.GET.get('page')
+    page = paginator.get_page(page_num)
+    return render(request,'paginainicial\home.html', {'page': page})
